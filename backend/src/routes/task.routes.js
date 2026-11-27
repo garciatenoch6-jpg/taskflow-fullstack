@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const { listTasks, createTask, updateTask, deleteTask } = require('../controllers/task.controller');
+const { authenticateToken } = require('../middleware/auth.middleware');
+const { validateTask } = require('../middleware/validation.middleware');
+router.use(authenticateToken);
+router.get('/', listTasks);
+router.post('/', validateTask, createTask);
+router.patch('/:id', validateTask, updateTask);
+router.delete('/:id', deleteTask);
+module.exports = router;
